@@ -641,6 +641,8 @@ public class HTTPSession implements IHTTPSession {
             // in data section, too, read it:
             if (Method.POST.equals(this.method)) {
                 ContentType contentType = new ContentType(this.headers.get("content-type"));
+                // multipart default no charset
+                contentType = contentType.tryUTF8();
                 if (contentType.isMultipart()) {
                     String boundary = contentType.getBoundary();
                     if (boundary == null) {
